@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Videos</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #eaecef;
+        }
+        
+        h1 {
+            color: #1a2a6c;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #6c757d;
+            margin-bottom: 30px;
+        }
+        
+        .video-section {
+            margin-bottom: 50px;
+        }
+        
+        .video-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .video-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        
+        .video-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .video-container {
+            position: relative;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            background-color: #000;
+        }
+        
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .video-info {
+            padding: 15px;
+        }
+        
+        .video-title {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: #1a2a6c;
+        }
+        
+        .video-description {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        
+        .math {
+            font-family: "Times New Roman", serif;
+            text-align: center;
+            margin: 10px 0;
+            font-size: 1.1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .video-group {
+                grid-template-columns: 1fr;
+            }
+            
+            body {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>物理系统数值模拟视频集</h1>
+        <div class="subtitle">不同膨胀率下的最深下降过程模拟</div>
+    </header>
+
+    <main>
+        <section class="video-section">
+            <h2>不同膨胀率模拟</h2>
+            <div class="math">
+                After slight expansion and deepest descent process, the inner boundary changed from $5.0l_0$ to $5.1l_0$. 
+            </div>
+            
+            <div class="video-group" id="videos-container">
+                <!-- 视频将通过JavaScript动态加载 -->
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // 视频数据 - 实际部署时需要替换为您的真实视频URL
+        const videoData = [
+            {
+                title: "$v_e=0.1v_0$",
+                src: "videos/elastic-bound-ve0.1.mp4",
+                // description: "膨胀率 0.1v₀ 的模拟结果"
+            },
+            {
+                title: "$v_e=0.3v_0$",
+                src: "videos/elastic-bound-ve0.3.mp4",
+                // description: "膨胀率 0.3v₀ 的模拟结果"
+            },
+            {
+                title: "$v_e=0.5v_0$",
+                src: "videos/elastic-bound-ve0.5.mp4",
+                // description: "膨胀率 0.5v₀ 的模拟结果"
+            },
+            {
+                title: "$v_e=0.7v_0$",
+                src: "videos/elastic-bound-ve0.7.mp4",
+                // description: "膨胀率 0.7v₀ 的模拟结果"
+            },
+            {
+                title: "$v_e=1v_0$",
+                src: "videos/elastic-bound-ve1.0.mp4",
+                // description: "膨胀率 1.0v₀ 的模拟结果"
+            },
+            {
+                title: "$v_e=2v_0$",
+                src: "videos/elastic-bound-ve2.0.mp4",
+                // description: "膨胀率 2.0v₀ 的模拟结果"
+            },
+            {
+                title: "$v_e=4v_0$",
+                src: "videos/elastic-bound-ve4.0.mp4",
+                // description: "膨胀率 4.0v₀ 的模拟结果"
+            },
+            {
+                title: "$v_e=6v_0$",
+                src: "videos/elastic-bound-ve6.0.mp4",
+                // description: "膨胀率 6.0v₀ 的模拟结果"
+            }
+        ];
+
+        // 渲染视频
+        function renderVideos() {
+            const container = document.getElementById('videos-container');
+            
+            videoData.forEach(video => {
+                const videoCard = document.createElement('div');
+                videoCard.className = 'video-card';
+                
+                videoCard.innerHTML = `
+                    <div class="video-container">
+                        <video controls>
+                            <source src="${video.src}" type="video/mp4">
+                            您的浏览器不支持视频播放
+                        </video>
+                    </div>
+                    <div class="video-info">
+                        <div class="video-title">${video.title}</div>
+                        <div class="video-description">${video.description}</div>
+                    </div>
+                `;
+                
+                container.appendChild(videoCard);
+            });
+        }
+
+        // 页面加载完成后渲染视频
+        window.addEventListener('DOMContentLoaded', renderVideos);
+    </script>
+</body>
+</html>
